@@ -1,19 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <title>Redirecionando...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Redirecionamento para WhatsApp</title>
     <script>
       const numbers = [
         "5551981083891",
         "5551981546169"
       ];
-      const random = Math.floor(Math.random() * numbers.length);
-      window.location.href = `https://wa.me/${numbers[random]}`;
+
+      const message = "Olá, estou interessado em melhorar a minha potência na cama!";
+      const usedIndex = localStorage.getItem("lastUsedIndex");
+
+      let index = 0;
+      if (usedIndex !== null) {
+        index = (parseInt(usedIndex) + 1) % numbers.length;
+      }
+
+      localStorage.setItem("lastUsedIndex", index.toString());
+
+      const phone = numbers[index];
+      const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+      window.location.href = url;
     </script>
   </head>
   <body>
     <p>Redirecionando para o WhatsApp...</p>
   </body>
 </html>
-
